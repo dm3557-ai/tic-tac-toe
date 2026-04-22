@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class TicTacToe {
+
+    // Create 3x3 board
+    static char[][] board = {
+            {' ', ' ', ' '},
+            {' ', ' ', ' '},
+            {' ', ' ', ' '}
+    };
+
+    // Method to print board
+    static void printBoard() {
+        System.out.println("---------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println("|");
+        }
+        System.out.println("---------");
+    }
+
+    // ✅ UC6: Place Move on Board
+    static boolean placeMove(int row, int col, char symbol) {
+        // Check if position is valid and empty
+        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+            if (board[row][col] == ' ') {
+                board[row][col] = symbol;  // PLACE MOVE
+                return true;
+            } else {
+                System.out.println("Cell already occupied!");
+                return false;
+            }
+        } else {
+            System.out.println("Invalid position!");
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char currentPlayer = 'X';
+
+        while (true) {
+            printBoard();
+
+            System.out.println("Player " + currentPlayer + " enter row and column (0-2): ");
+            int row = sc.nextInt();
+            int col = sc.nextInt();
+
+            // Try placing move
+            if (placeMove(row, col, currentPlayer)) {
+                // Switch player
+                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            }
+        }
+    }
+}
